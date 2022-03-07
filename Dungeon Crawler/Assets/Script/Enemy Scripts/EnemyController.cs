@@ -5,11 +5,15 @@ using UnityEngine.AI;
 
 public class EnemyController : MonoBehaviour
 {
+    public int maxHealth = 100;
+    int currentHealth;
     public float LookRadius = 10f;
     public float attackRate = 2f;
     float nextAttackTime = 0f;
+    float iDiedAtTime = 0f;
     public Animator animator;
     public GameObject Mouth;
+
     
 
     Transform target;
@@ -18,6 +22,7 @@ public class EnemyController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        currentHealth = maxHealth;
         target = PlayerManager.instance.player.transform;
         agent = GetComponent<NavMeshAgent>();
         animator = GetComponent<Animator>();
@@ -34,25 +39,35 @@ public class EnemyController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        float distance = Vector3.Distance(target.position, transform.position);
-
-        if(distance <= LookRadius)
+        if(currentHealth > 0)
         {
-            agent.SetDestination(target.position);
-            animator.SetBool("IsWalking", true);
+            float distance = Vector3.Distance(target.position, transform.position);
 
-            if(agent.remainingDistance < 1.5f)
+            if(distance <= LookRadius)
             {
-                GetComponent<Animator>().SetTrigger("Attack");
+                agent.SetDestination(target.position);
+                animator.SetBool("IsWalking", true);
+
+                if(agent.remainingDistance < 1.5f)
+                {
+                    GetComponent<Animator>().SetTrigger("Attack");
+                }
+            }
+
+            if (Time.time >= nextAttackTime)
+            {
+                if (Mouth.GetComponent<Collider>().enabled == true)
+                {
+                    activateBite();
+                    nextAttackTime = Time.time + 1f / attackRate;
+                }
             }
         }
-        if (Time.time >= nextAttackTime)
+        else
         {
-            if (Mouth.GetComponent<Collider>().enabled == true)
+            if(iDiedAtTime > 0 && Time.time >= iDiedAtTime)
             {
-                activateBite();
-                nextAttackTime = Time.time + 1f / attackRate;
-
+                //do something now that i'm dead...
             }
         }
 
@@ -64,9 +79,32 @@ public class EnemyController : MonoBehaviour
         Gizmos.DrawWireSphere(transform.position, LookRadius);
     }
 
+     public void TakeDamage(int damage)
+    {
+        currentHealth -= damage;
+
+        animator.SetTrigger("Hurt");
+
+        if(currentHealth <= 0)
+        {
+            Die();
+        }
+    }
+
 
     void Die()
     {
+        Debug.Log("Enemy Died!");
+
+        animator.SetBool("IsDead", true);
+
+        GetComponent<BoxCollider>().enabled = false;
+        this.enabled = false;
+       // iDiedAtTime = Time.time + 5f;
+        //agent.SetDestination(transform.position );
+        
+        
+       
 
     }
 

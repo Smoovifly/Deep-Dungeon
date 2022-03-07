@@ -17,20 +17,18 @@ public class SceneTransitionArea : MonoBehaviour
     void OnTriggerExit(Collider other)
     {
         if (other.tag == "Player")
-            _isPlayerWithinZone = true;
+            _isPlayerWithinZone = false;
         Debug.Log("Closeed Door!");
     }
 
-    IEnumerator watchForKeyPress()
+    void Update()
     {
-        while (_isPlayerWithinZone)
+        if (_isPlayerWithinZone)
         {
             if (Input.GetKey(KeyCode.E))
             {
                 SceneManager.LoadScene("Dungeon");
-                Debug.Log("EEEEEEEEEEE");
             }
-            yield return null;
         }
     }
 }

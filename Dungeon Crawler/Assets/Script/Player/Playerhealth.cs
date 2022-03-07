@@ -7,6 +7,7 @@ public class Playerhealth : MonoBehaviour
 
     public int maxhealth = 100;
     public int currentHealth;
+    public GameObject DeathScreen;
    
 
     public HealthBar healthBar;
@@ -34,6 +35,13 @@ public class Playerhealth : MonoBehaviour
         {
             currentHealth = maxhealth;
         }
+    }
+
+
+   void die()
+    {
+     Debug.Log("Dead");
+     DeathScreen.SetActive(true);
     }
 
 
@@ -65,8 +73,5 @@ public class Playerhealth : MonoBehaviour
         
     }
 
-    void die()
-    {
-        
-    }
+  
 }

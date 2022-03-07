@@ -63,7 +63,7 @@ public class PauseMenu : MonoBehaviour
 
     public void LoadNextLevel()
     {
-        SceneManager.LoadScene("Enter Dungeon");
+        SceneManager.LoadScene("Dungeon");
     }
 
     
