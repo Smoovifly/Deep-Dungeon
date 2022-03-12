@@ -6,15 +6,16 @@ using UnityEngine.AI;
 public class EnemyController : MonoBehaviour
 {
     public int maxHealth = 100;
-    int currentHealth;
+    public int currentHealth;
     public float LookRadius = 10f;
     public float attackRate = 2f;
     float nextAttackTime = 0f;
     float iDiedAtTime = 0f;
     public Animator animator;
     public GameObject Mouth;
+    public GameObject Spider;
 
-    
+
 
     Transform target;
     NavMeshAgent agent;
@@ -94,12 +95,21 @@ public class EnemyController : MonoBehaviour
 
     void Die()
     {
-        Debug.Log("Enemy Died!");
+        Debug.Log($"{this.name} Died!");
 
         animator.SetBool("IsDead", true);
-
         GetComponent<BoxCollider>().enabled = false;
         this.enabled = false;
+
+        //Destroy(agent);
+        //Destroy(Mouth);
+        Destroy(Spider, 5.0f);
+        //Destroy(myself);
+        //myself.enabled = false;
+
+       
+        //this.enabled = false;
+       
        // iDiedAtTime = Time.time + 5f;
         //agent.SetDestination(transform.position );
         

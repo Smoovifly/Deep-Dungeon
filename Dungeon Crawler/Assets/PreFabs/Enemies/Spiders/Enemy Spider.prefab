@@ -159,7 +159,6 @@ GameObject:
   m_Component:
   - component: {fileID: 3740705088156691370}
   - component: {fileID: 5850571044382215528}
-  - component: {fileID: 5850571044382215535}
   - component: {fileID: 6818212205847431004}
   - component: {fileID: -8735554600619926037}
   - component: {fileID: -2060608976043724640}
@@ -201,20 +200,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.9550412, y: 2.1317966, z: 2.9173548}
   m_Center: {x: 0.07749736, y: 0.56589866, z: 0.174986}
---- !u!114 &5850571044382215535
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3740705088156792714}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ebb2dff31df36f045b03a352833162a1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  animator: {fileID: 6818212205847431004}
-  maxHealth: 100
 --- !u!95 &6818212205847431004
 Animator:
   serializedVersion: 4
@@ -286,10 +271,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 100
+  currentHealth: 0
   LookRadius: 10
   attackRate: 0.5
   animator: {fileID: 6818212205847431004}
   Mouth: {fileID: 2947029090029024990, guid: 5c3d36addb79759499e8f80007942d21, type: 3}
+  Spider: {fileID: 3740705088156792714}
 --- !u!1 &3740705088156792736
 GameObject:
   m_ObjectHideFlags: 0
