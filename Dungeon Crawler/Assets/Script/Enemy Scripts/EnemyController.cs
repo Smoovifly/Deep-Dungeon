@@ -53,6 +53,8 @@ public class EnemyController : MonoBehaviour
                 {
                     GetComponent<Animator>().SetTrigger("Attack");
                 }
+
+               
             }
 
             if (Time.time >= nextAttackTime)
